@@ -70,20 +70,27 @@ CairoPNG("heatmap.png", width=1920, height=1080)
                  "%"))
 dev.off()
 
-
-# Example 1 and 2 plots
-plot(theta, vec, type='l', xlim=c(mintheta,maxtheta), ylim=c(0,max(vec)),
-     main='Δh/Δs reduction (%) a function of Deviation',
-     xlab='Deviation from straight path up (º)',
-     ylab='dW/ds ~ Δh/Δs (%)',
-     axes=FALSE)
-box()
-axis(1, at = tickstheta, labels = tickstheta, cex.axis = 1)
-axis(2, at = seq(0, max(vec), length.out=11),
-     labels = seq(0,100, length.out=11), cex.axis = 1)
-# Example 1
-abline(h=M[i,j], v=round((j-1)/(length(vec)-1)*maxtheta),
-       col='red', lty='dotted')
-# Example 2
-abline(h=vec[round(45/maxtheta*length(vec))], v=45, col='red', lty='dotted')
+CairoPNG("examples.png", width=1024, height=800)
+    # Example 1 and 2 plots
+    plot(theta, vec, type='l', xlim=c(mintheta,maxtheta), ylim=c(0,max(vec)),
+         main='Δh/Δs reduction (%) as a function of Deviation',
+         xlab='Deviation from straight path up (º)',
+         ylab='dW/ds ~ Δh/Δs (%)',
+         col='blue', lwd=2, axes=FALSE)
+    box()
+    axis(1, at = tickstheta, labels = tickstheta, cex.axis = 1)
+    axis(2, at = seq(0, max(vec), length.out=11),
+         labels = seq(0,100, length.out=11), cex.axis = 1)
+    # Example 1
+    x1=round((j-1)/(length(vec)-1)*maxtheta)
+    y1=M[i,j]
+    abline(h=y1, v=x1,
+           col='red', lty='dotted')
+    points(x1, y1, col='blue', cex=2, pch=19)
+    # Example 2
+    x2=45
+    y2=vec[round(45/maxtheta*length(vec))]
+    abline(h=y2, v=x2, col='red', lty='dotted')
+    points(x2, y2, col='blue', cex=2, pch=19)
+dev.off()
        
