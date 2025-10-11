@@ -26,7 +26,7 @@ colnames(M) <- theta      # theta values
 # write.csv2(M, "bike.csv")
 
 NCOL=10
-CairoPNG("heatmap.png", width=1920, height=1080)
+CairoPNG("bicycleheatmap.png", width=1920, height=1080)
     # Plot using original increasing alpha
     image(theta, alpha, t(M),
           # col = gray.colors(NCOL, start = 1, end = 0.25),
@@ -51,7 +51,7 @@ CairoPNG("heatmap.png", width=1920, height=1080)
             labelfmt = "%.3f",
             lwd = 1.2, labcex = 1.2, col = 'black')
     
-    # Example 1: angle to get slope (effort) halved, for a max slope of dh/ds=0.25
+    # Example 1: calculate angle to get slope/effort halved
     value_1_4=asin(1/4)  # slope to get dh/ds=0.25
     print(paste0("Slope at which dh/ds=0.25: ", round(value_1_4*180/pi,1), "º"))
     i=as.integer(which.min(abs(M[,1]-value_1_4)))
@@ -63,14 +63,13 @@ CairoPNG("heatmap.png", width=1920, height=1080)
     print(paste0("You must ride ", round((j-1)/(length(vec)-1)*maxtheta,1),
                  "º deviated from straight line"))
     
-    # Example 2: slope (effort) reduction in % for a Deviatio of 45º,
-    # for a max slope of dh/ds=0.25
+    # Example 2: calculate slope/effort reduction in % for a Deviation of 45º
     print(paste0("Effort reduction for 45º of Deviation: ",
                  round((1-vec[round(45/maxtheta*length(vec))]/max(vec))*100,1),
                  "%"))
 dev.off()
 
-CairoPNG("examples.png", width=1024, height=800)
+CairoPNG("bicycleexamples.png", width=1024, height=800)
     # Example 1 and 2 plots
     plot(theta, vec, type='l', xlim=c(mintheta,maxtheta), ylim=c(0,max(vec)),
          main='Δh/Δs reduction (%) as a function of Deviation',
@@ -81,12 +80,14 @@ CairoPNG("examples.png", width=1024, height=800)
     axis(1, at = tickstheta, labels = tickstheta, cex.axis = 1)
     axis(2, at = seq(0, max(vec), length.out=11),
          labels = seq(0,100, length.out=11), cex.axis = 1)
+    
     # Example 1
     x1=round((j-1)/(length(vec)-1)*maxtheta)
     y1=M[i,j]
     abline(h=y1, v=x1,
            col='red', lty='dotted')
     points(x1, y1, col='blue', cex=2, pch=19)
+    
     # Example 2
     x2=45
     y2=vec[round(45/maxtheta*length(vec))]
