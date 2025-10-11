@@ -73,7 +73,7 @@ dev.off()
 
 # Example 1 and 2 plots
 plot(theta, vec, type='l', xlim=c(mintheta,maxtheta), ylim=c(0,max(vec)),
-     main='Δh/Δs reduction (%) a function of Deviation (max slope of dh/ds=0.25)',
+     main='Δh/Δs reduction (%) a function of Deviation',
      xlab='Deviation from straight path up (º)',
      ylab='dW/ds ~ Δh/Δs (%)',
      axes=FALSE)
